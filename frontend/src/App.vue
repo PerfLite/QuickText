@@ -50,6 +50,7 @@ let isResizing = false
 
 // --- Terminal ---
 const showTerminal = ref(false)
+const termFocused = ref(false)
 const terminalContainer = ref(null)
 let xterm = null
 let fitAddon = null
@@ -411,6 +412,9 @@ function initTerminal() {
   xterm.open(terminalContainer.value)
   fitAddon.fit()
 
+  xterm.onFocus(() => { termFocused.value = true })
+  xterm.onBlur(() => { termFocused.value = false })
+
   xterm.onData((data) => {
     window.go.main.App.WriteTerminal(data)
   })
@@ -561,13 +565,14 @@ function handleGlobalKey(e) {
     toggleTerminal()
   }
   if ((e.ctrlKey || e.metaKey) && code === 'KeyA') {
-    // Layout-independent Select All: Monaco's built-in Ctrl+A breaks under
-    // non-Latin layouts, so trigger it explicitly. Only when the editor holds
-    // focus, otherwise leave Ctrl+A to the terminal (start-of-line) etc.
-    if (editor && editor.hasTextFocus()) {
-      e.preventDefault()
-      editor.getAction('editor.action.selectAll')?.run()
-    }
+    // Leave Ctrl+A to the terminal (start-of-line in the shell).
+    if (termFocused.value) return
+    // Outside the editor the browser would select the whole interface.
+    // Always focus the editor and select its text instead. This also fixes
+    // Select All under non-Latin layouts, where Monaco's own Ctrl+A fails.
+    e.preventDefault()
+    if (editor && !editor.hasTextFocus()) editor.focus()
+    editor?.getAction('editor.action.selectAll')?.run()
   }
 }
 </script>
