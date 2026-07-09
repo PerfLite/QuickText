@@ -542,6 +542,13 @@ onBeforeUnmount(() => {
   Object.values(models).forEach(m => m.dispose())
 })
 
+function isSelectAll(e) {
+  const k = (e.key || '').toLowerCase()
+  // Physical key code is layout-independent; also match the produced
+  // character for layouts where e.code may be unreliable (Latin 'a' / Cyrillic 'ф').
+  return e.code === 'KeyA' || k === 'a' || k === 'ф'
+}
+
 function handleGlobalKey(e) {
   const code = e.code
   if ((e.ctrlKey || e.metaKey) && code === 'KeyS') {
@@ -564,15 +571,18 @@ function handleGlobalKey(e) {
     e.preventDefault()
     toggleTerminal()
   }
-  if ((e.ctrlKey || e.metaKey) && code === 'KeyA') {
+  if ((e.ctrlKey || e.metaKey) && isSelectAll(e)) {
     // Leave Ctrl+A to the terminal (start-of-line in the shell).
     if (termFocused.value) return
-    // Outside the editor the browser would select the whole interface.
-    // Always focus the editor and select its text instead. This also fixes
-    // Select All under non-Latin layouts, where Monaco's own Ctrl+A fails.
+    // Outside the editor the browser would select the whole interface, so
+    // always prevent that. Select all editor text directly via the model —
+    // layout-independent and works under non-Latin layouts (where Monaco's
+    // own Ctrl+A binding fails).
     e.preventDefault()
-    if (editor && !editor.hasTextFocus()) editor.focus()
-    editor?.getAction('editor.action.selectAll')?.run()
+    if (editor && editor.getModel()) {
+      editor.setSelection(editor.getModel().getFullModelRange())
+      if (!editor.hasTextFocus()) editor.focus()
+    }
   }
 }
 </script>
