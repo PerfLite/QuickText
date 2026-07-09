@@ -19,6 +19,10 @@ A lightweight, fast and minimal text editor for Linux, built with **Wails v2** (
 - **Autosave** — unsaved work is periodically persisted and restored on next launch.
 - **Dark, minimal UI** — Flat/Zinc-inspired theme built with Tailwind CSS.
 
+## Screenshot
+
+![QuickText](screenshots/quicktext.jpg)
+
 ## Tech Stack
 
 | Layer      | Technology                                  |

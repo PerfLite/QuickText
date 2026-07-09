@@ -560,6 +560,15 @@ function handleGlobalKey(e) {
     e.preventDefault()
     toggleTerminal()
   }
+  if ((e.ctrlKey || e.metaKey) && code === 'KeyA') {
+    // Layout-independent Select All: Monaco's built-in Ctrl+A breaks under
+    // non-Latin layouts, so trigger it explicitly. Only when the editor holds
+    // focus, otherwise leave Ctrl+A to the terminal (start-of-line) etc.
+    if (editor && editor.hasTextFocus()) {
+      e.preventDefault()
+      editor.getAction('editor.action.selectAll')?.run()
+    }
+  }
 }
 </script>
 
