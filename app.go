@@ -248,3 +248,14 @@ func (a *App) LoadAutoSave() string {
 func (a *App) ClearAutoSave() {
 	os.Remove(a.getAutoSaveDir() + "/autosave.json")
 }
+
+// OpenInBrowser opens a URL in the system's default browser. The Wails webview
+// does not handle target="_blank", so external links must go through the backend.
+func (a *App) OpenInBrowser(url string) {
+	runtime.BrowserOpenURL(a.ctx, url)
+}
+
+// GetVersion returns the application version (kept in sync with wails.json).
+func (a *App) GetVersion() string {
+	return "1.0.0"
+}

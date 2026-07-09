@@ -6,13 +6,14 @@ import { Terminal } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
 import '@xterm/xterm/css/xterm.css'
 import { EventsOn } from '../wailsjs/runtime/runtime'
+import appIcon from './assets/quicktext.png'
 
 // --- i18n ---
 const lang = ref(localStorage.getItem('lang') || 'ru')
 const i18n = {
   ru: {
     open: 'Открыть', save: 'Сохранить', saveAs: 'Сохранить как...', openFolder: 'Открыть папку',
-    settings: 'Настройки', fontSize: 'Размер шрифта', welcome: 'Приветствие', language: 'Язык',
+    settings: 'Настройки', fontSize: 'Размер шрифта', welcome: 'Приветствие', language: 'Язык', about: 'О программе',
     sidebar: 'Переключить сайдбар', menu: 'Меню', terminal: 'Терминал',
     openHint: 'Ctrl+O для открытия файла', saveQuestion: 'Сохранить изменения?',
     saveMsg: 'Есть несохранённые файлы', cancel: 'Отмена', discard: 'Выйти', saveAndExit: 'Сохранить и выйти',
@@ -22,7 +23,7 @@ const i18n = {
   },
   en: {
     open: 'Open', save: 'Save', saveAs: 'Save as...', openFolder: 'Open folder',
-    settings: 'Settings', fontSize: 'Font size', welcome: 'Welcome tab', language: 'Language',
+    settings: 'Settings', fontSize: 'Font size', welcome: 'Welcome tab', language: 'Language', about: 'About',
     sidebar: 'Toggle sidebar', menu: 'Menu', terminal: 'Terminal',
     openHint: 'Ctrl+O to open a file', saveQuestion: 'Save changes?',
     saveMsg: 'You have unsaved files', cancel: 'Cancel', discard: 'Exit', saveAndExit: 'Save and exit',
@@ -55,6 +56,8 @@ const terminalContainer = ref(null)
 let xterm = null
 let fitAddon = null
 const menuOpen = ref(false)
+const aboutOpen = ref(false)
+const appVersion = ref('1.0.0')
 const settingsOpen = ref(false)
 const showCloseDialog = ref(false)
 const statusMessage = ref('')
@@ -239,6 +242,17 @@ function toggleMenu() {
 function toggleSettings() {
   settingsOpen.value = !settingsOpen.value
   menuOpen.value = false
+}
+
+function showAbout() {
+  menuOpen.value = false
+  settingsOpen.value = false
+  window.go.main.App.GetVersion().then((v) => { appVersion.value = v }).catch(() => {})
+  aboutOpen.value = true
+}
+
+function openLink(url) {
+  window.go.main.App.OpenInBrowser(url)
 }
 
 function closeDialogSave() {
@@ -624,6 +638,10 @@ function handleGlobalKey(e) {
           <button @click="handleOpenFolder" class="w-full px-4 py-2 text-left text-sm hover:bg-zinc-700 flex items-center gap-3">
             <span>{{ t.openFolder }}</span>
           </button>
+          <div class="border-t border-zinc-700 my-1"></div>
+          <button @click="showAbout" class="w-full px-4 py-2 text-left text-sm hover:bg-zinc-700 flex items-center gap-3">
+            <span>{{ t.about }}</span>
+          </button>
         </div>
       </div>
 
@@ -900,6 +918,42 @@ function handleGlobalKey(e) {
       </div>
     </div>
   </div>
+
+    <!-- About Dialog -->
+    <div v-if="aboutOpen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60" @click.self="aboutOpen = false">
+      <div class="bg-[#1e1e22] border border-zinc-700 rounded-xl shadow-2xl w-80 p-6">
+        <div class="text-center mb-4">
+          <img :src="appIcon" alt="QuickText" class="w-20 h-20 mx-auto mb-3 rounded-xl" />
+          <h2 class="text-zinc-100 text-lg font-semibold">QuickText</h2>
+          <p class="text-zinc-500 text-xs mt-1">v{{ appVersion }} — {{ lang === 'ru' ? 'Лёгкий текстовый редактор для Linux' : 'Lightweight text editor for Linux' }}</p>
+        </div>
+
+        <div class="bg-[#141416] border border-zinc-800 rounded-lg p-3 mb-3">
+          <div class="text-[10px] text-zinc-600 uppercase tracking-wider mb-2">Developer</div>
+          <a @click="openLink('https://github.com/PerfLite')" class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer text-zinc-300 hover:bg-zinc-700/60">
+            <svg viewBox="0 0 16 16" class="w-4 h-4 fill-zinc-300 shrink-0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span class="text-sm">GitHub: <span class="text-blue-400 font-medium">PerfLite</span></span>
+          </a>
+          <a @click="openLink('https://t.me/bashakul')" class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer text-zinc-300 hover:bg-zinc-700/60">
+            <svg viewBox="0 0 16 16" class="w-4 h-4 fill-blue-400 shrink-0"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.677 5.466l1.595 5.98-1.96-.93-.684 2.17a.5.5 0 0 0 .863.044l1.592-2.05 2.71 2.01a.5.5 0 0 0 .778-.17L13.19 3.97a.5.5 0 0 0-.69-.6L4.677 5.466z"/></svg>
+            <span class="text-sm">Telegram: <span class="text-blue-400 font-medium">@bashakul</span></span>
+          </a>
+        </div>
+
+        <div class="bg-[#141416] border border-zinc-800 rounded-lg p-3 mb-4">
+          <div class="text-[10px] text-zinc-600 uppercase tracking-wider mb-2">Built with</div>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-blue-400">Go</span>
+            <span class="bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-emerald-400">Wails v2</span>
+            <span class="bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-amber-400">WebKit2GTK</span>
+            <span class="bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-sky-400">Vue 3</span>
+            <span class="bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-purple-400">Monaco</span>
+          </div>
+        </div>
+
+        <button @click="aboutOpen = false" class="w-full py-2 text-sm rounded-lg bg-zinc-700 hover:bg-zinc-600 text-zinc-200 transition-colors">Close</button>
+      </div>
+    </div>
 </template>
 
 <script>

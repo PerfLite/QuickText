@@ -12,11 +12,15 @@ export function GetFolderTree(arg1:string):Promise<Array<main.FileNode>>;
 
 export function GetPendingFile():Promise<string>;
 
+export function GetVersion():Promise<string>;
+
 export function LoadAutoSave():Promise<string>;
 
 export function OpenFile(arg1:string):Promise<string>;
 
 export function OpenFileChooser():Promise<string>;
+
+export function OpenInBrowser(arg1:string):Promise<void>;
 
 export function ResizeTerminal(arg1:number,arg2:number):Promise<void>;
 

@@ -22,6 +22,10 @@ export function GetPendingFile() {
   return window['go']['main']['App']['GetPendingFile']();
 }
 
+export function GetVersion() {
+  return window['go']['main']['App']['GetVersion']();
+}
+
 export function LoadAutoSave() {
   return window['go']['main']['App']['LoadAutoSave']();
 }
@@ -32,6 +36,10 @@ export function OpenFile(arg1) {
 
 export function OpenFileChooser() {
   return window['go']['main']['App']['OpenFileChooser']();
+}
+
+export function OpenInBrowser(arg1) {
+  return window['go']['main']['App']['OpenInBrowser'](arg1);
 }
 
 export function ResizeTerminal(arg1, arg2) {
