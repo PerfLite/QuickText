@@ -59,7 +59,7 @@ wails build
 The output binary is placed in `build/bin/`. For a Debian package:
 
 ```bash
-wails build -platform linux/amd64 -deb
+wails build -platform linux/amd64
 ```
 
 ## Project Structure

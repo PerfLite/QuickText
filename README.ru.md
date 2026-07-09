@@ -59,7 +59,7 @@ wails build
 Исполняемый файл помещается в `build/bin/`. Для сборки Debian-пакета:
 
 ```bash
-wails build -platform linux/amd64 -deb
+wails build -platform linux/amd64
 ```
 
 ## Структура проекта
