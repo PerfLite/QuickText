@@ -935,7 +935,7 @@ function handleGlobalKey(e) {
             <span class="text-sm">GitHub: <span class="text-blue-400 font-medium">PerfLite</span></span>
           </a>
           <a @click="openLink('https://t.me/bashakul')" class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer text-zinc-300 hover:bg-zinc-700/60">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-400 shrink-0"><path d="M9.78 18.65l.28-4.21 7.69-7.69c.34-.34.67-.04.6.29l-1.2 5.76c-.09.43-.46.54-.79.34l-2.55-1.88c-.27-.2-.53-.2-.74.06-.21.27-.21.53 0 .74l2.55 1.88c.27.2.41.77-.34.79l-5.76 1.2c-.33.07-.63-.08-.29-.6z"/></svg>
+            <svg viewBox="0 0 50 50" class="w-4 h-4 shrink-0"><circle cx="25" cy="25" r="24" fill="#29A9E1"/><path d="M10.5 24.6c7.3-3.2 12.2-5.3 14.7-6.3 7-2.9 8.4-3.4 9.4-3.4.2 0 .6.1.9.3.2.2.3.4.3.6 0 .2-.1.6-.1.6-.6 5.7-3.3 14.1-4.8 18.7-.3 1.1-.9 1.5-1.4 1.5-.6 0-1.1-.4-1.7-1-2.4-2.3-4.6-4.1-7.4-6.4-.4-.4-.2-.7.1-.8.2-.2 4.3-3.9 8.5-7.7.2-.2.3-.3 0-.1-1.3.9-7.2 5.2-8.5 5.8-.5.3-1.1.3-1.8.1-1-.3-3.4-1.1-5.4-1.8-.7-.3-1.1-.5-1-.8.1-.2.1-.3.7-.4z" fill="#fff"/></svg>
             <span class="text-sm">Telegram: <span class="text-blue-400 font-medium">PerfLite</span></span>
           </a>
         </div>
