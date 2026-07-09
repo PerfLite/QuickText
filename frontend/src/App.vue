@@ -935,8 +935,8 @@ function handleGlobalKey(e) {
             <span class="text-sm">GitHub: <span class="text-blue-400 font-medium">PerfLite</span></span>
           </a>
           <a @click="openLink('https://t.me/bashakul')" class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer text-zinc-300 hover:bg-zinc-700/60">
-            <svg viewBox="0 0 16 16" class="w-4 h-4 fill-blue-400 shrink-0"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.677 5.466l1.595 5.98-1.96-.93-.684 2.17a.5.5 0 0 0 .863.044l1.592-2.05 2.71 2.01a.5.5 0 0 0 .778-.17L13.19 3.97a.5.5 0 0 0-.69-.6L4.677 5.466z"/></svg>
-            <span class="text-sm">Telegram: <span class="text-blue-400 font-medium">@bashakul</span></span>
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-400 shrink-0"><path d="M9.78 18.65l.28-4.21 7.69-7.69c.34-.34.67-.04.6.29l-1.2 5.76c-.09.43-.46.54-.79.34l-2.55-1.88c-.27-.2-.53-.2-.74.06-.21.27-.21.53 0 .74l2.55 1.88c.27.2.41.77-.34.79l-5.76 1.2c-.33.07-.63-.08-.29-.6z"/></svg>
+            <span class="text-sm">Telegram: <span class="text-blue-400 font-medium">PerfLite</span></span>
           </a>
         </div>
 
