@@ -1,0 +1,31 @@
+# --- Compiled binaries & build output ---
+QuickText
+*.exe
+*.dmg
+*.deb
+*.AppImage
+*.AppDir/
+*.app
+
+# --- Wails / Go ---
+build/bin/
+build/deb/usr/bin/
+frontend/dist/
+*.test
+*.out
+
+# --- Node (frontend) ---
+node_modules/
+frontend/node_modules/
+
+# --- MiMoCode session data ---
+.mimocode/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp

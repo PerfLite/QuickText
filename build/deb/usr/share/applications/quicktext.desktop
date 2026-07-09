@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QuickText
+Comment=A lightweight, fast and minimal text editor
+Exec=/usr/bin/QuickText %U
+Icon=quicktext
+Type=Application
+Categories=Utility;TextEditor;
+Terminal=false
+MimeType=text/plain;text/x-python;text/x-csrc;text/x-chdr;text/x-java;text/x-shellscript;text/x-makefile;text/x-diff;text/x-svg;text/x-asm;text/x-log;text/x-todo;text/css;text/html;text/xml;text/x-nginx-conf;text/x-ini;
+Keywords=text;editor;quick;
